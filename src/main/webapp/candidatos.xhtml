@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="./WEB-INF/templates/layout.xhtml">
+
+    <ui:define name="styles">
+        <link href="./css/inscricao.css" rel="stylesheet" type="text/css" />
+    </ui:define>
+
+    <ui:define name="metadata">
+    </ui:define>
+
+    <ui:define name="javascript">
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="titulo-lista">LISTA DE CANDIDATOS</div>
+        <h:form>
+            <h:dataTable id="listaCandidatos" value="#{inscricaoBean.dataModel}" var="cand">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="CPF" />
+                    </f:facet>
+                    <h:outputText converter="cpfConverter" value="#{cand.cpf}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Nome" />
+                    </f:facet>
+                    <h:commandLink value="#{cand.nome}" action="#{inscricaoBean.candidatoAction(inscricaoBean.dataModel.rowData)}">
+                        <!--<f:param name="candidato" value="#{cand}" />-->
+                    </h:commandLink>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Cidade" />
+                    </f:facet>
+                    <h:outputText value="#{cand.cidade}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Estado" />
+                    </f:facet>
+                    <h:outputText value="#{cand.estado}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Excluir" />
+                    </f:facet>
+                    <h:commandButton value="Excluir" action="#{inscricaoBean.excluirAction(inscricaoBean.dataModel.rowData)}" />
+                </h:column>
+
+                <h:commandButton value="Voltar" action="inscricao"/>
+                <h:messages/>
+            </h:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
